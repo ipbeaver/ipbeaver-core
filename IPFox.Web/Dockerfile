@@ -7,17 +7,17 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["RealIP.Web/RealIP.Web.csproj", "RealIP.Web/"]
-RUN dotnet restore "RealIP.Web/RealIP.Web.csproj"
+COPY ["IPFox.Web/IPFox.Web.csproj", "IPFox.Web/"]
+RUN dotnet restore "IPFox.Web/IPFox.Web.csproj"
 COPY . .
-WORKDIR "/src/RealIP.Web"
-RUN dotnet build "RealIP.Web.csproj" -c Release -o /app/build
+WORKDIR "/src/IPFox.Web"
+RUN dotnet build "IPFox.Web.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "RealIP.Web.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "IPFox.Web.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 COPY ip.db .
-ENTRYPOINT ["dotnet", "RealIP.Web.dll"]
+ENTRYPOINT ["dotnet", "IPFox.Web.dll"]

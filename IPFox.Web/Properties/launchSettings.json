@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "RealIP.Web": {
+    "IPFox.Web": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
