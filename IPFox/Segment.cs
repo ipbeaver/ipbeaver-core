@@ -20,11 +20,12 @@ namespace IPFox
                 var arr=Region.Split('|');
                 string? c = arr[3] != "0" ? arr[3] : null;
                 string? s = arr[2]!="0"? arr[2] : null;
+                string? p = arr[4] != "0" ? arr[4] : null;
                 RegionDetail rd = new RegionDetail() { 
                     Country = arr[0], 
                     State = s,
                     City = c,
-                    DataProvider = arr[4] };
+                    DataProvider = p };
                 return rd;
             }
         }

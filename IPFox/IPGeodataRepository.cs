@@ -10,13 +10,25 @@ namespace IPFox
 {
     public class IPGeodataRepository
     {
-        const string dataFolder = "/app/";
+        const string dataFolderForContainer = "/app/";
+        const string dataFolderForTest = "../../../../data/";
         const string dbFileName = "ip.db";
+        static bool IsTestMode = false;
         static IPGeodataRepository()
         {
-            if (!File.Exists(dataFolder+dbFileName))
+            if (File.Exists(dataFolderForTest + dbFileName))
             {
-                InitLiteDB();
+                IsTestMode = true;
+                if (!File.Exists(dataFolderForTest + dbFileName))
+                {
+                    InitLiteDB();
+                }
+            } else
+            {
+                if (!File.Exists(dataFolderForContainer + dbFileName))
+                {
+                    InitLiteDB();
+                }
             }
         }
         static List<Segment> segments = null;
@@ -27,7 +39,8 @@ namespace IPFox
                 return;
             }
             segments = new List<Segment>();
-            using (TextReader reader = new StreamReader(dataFolder+"data_ip.merge.txt"))
+            var dataFolder= !IsTestMode? dataFolderForContainer : dataFolderForTest;
+            using (TextReader reader = new StreamReader(dataFolder + "data_ip.txt"))
             {
                 string? line;
                 while ((line = reader.ReadLine()) != null)
@@ -36,7 +49,7 @@ namespace IPFox
                     segments.Add(seg);
                 }
             }
-            using (var db = new LiteDatabase(dataFolder+ dbFileName))
+            using (var db = new LiteDatabase(dataFolder + dbFileName))
             {
                 var col = db.GetCollection<Segment>("IPSegments");
                 col.Insert(segments);
@@ -46,10 +59,11 @@ namespace IPFox
 
         public static async Task<RegionDetail> GetIPLocationAsync(string ip)
         {
-            if (!Util.ValidateIPv4(ip))
+            if (!Util.ValidateIP(ip))
             {
                 throw new ArgumentException($"{ip} is not a valid IP address");
             }
+            var dataFolder = !IsTestMode ? dataFolderForContainer : dataFolderForTest;
             using (var db = new LiteDatabaseAsync(dataFolder + dbFileName))
             {
                 var col = db.GetCollection<Segment>("IPSegments");

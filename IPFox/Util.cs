@@ -40,6 +40,28 @@ namespace IPFox
 
             return splitValues.All(r => byte.TryParse(r, out tempForParsing));
         }
+        /// <summary>
+        /// Validate both IPv4 and IPv6
+        /// </summary>
+        /// <returns></returns>
+        public static bool ValidateIP(string ip)
+        {
+            IPAddress address;
+            if (IPAddress.TryParse(ip, out address))
+            {
+                switch (address.AddressFamily)
+                {
+                    case System.Net.Sockets.AddressFamily.InterNetwork:
+                        return true;
+                    case System.Net.Sockets.AddressFamily.InterNetworkV6:
+                        return true;
+                    default:
+                        // umm... yeah... I'm going to need to take your red packet and...
+                        return false;
+                }
+            }
+            return false;
+        }
         public static Segment GetSegment(string line)
         {
             var ps = line.Split("|", 3);
