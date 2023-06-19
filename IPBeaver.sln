@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPFox", "IPFox\IPFox.csproj", "{B17F81D5-4EEA-456C-81E5-ABB09369FD7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPFox", "IPBeaver\IPBeaver.csproj", "{B17F81D5-4EEA-456C-81E5-ABB09369FD7D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPFox.Tests", "IPFox.Tests\IPFox.Tests.csproj", "{7A183CD1-AB68-4195-9A96-B9C3EF9DEF07}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPFox.Tests", "IPBeaver.Tests\IPBeaver.Tests.csproj", "{7A183CD1-AB68-4195-9A96-B9C3EF9DEF07}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPFox.Web", "IPFox.Web\IPFox.Web.csproj", "{E724BD15-0A9E-4194-A0B1-F6DDED712E98}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPFox.Web", "IPBeaver.Web\IPBeaver.Web.csproj", "{E724BD15-0A9E-4194-A0B1-F6DDED712E98}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
